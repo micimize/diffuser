@@ -1,0 +1,18 @@
+attrs>=22.1.0
+denoising-diffusion-pytorch>=0.31.0
+einops>=0.5.0
+fire>=0.4.0
+gym>=0.26.2
+jupyter>=1.0.0
+-e git+ssh://git@github.com/micimize/Minigrid.git@268c56b691c330425544c4917db0a19746d83dc0#egg=Minigrid
+nptyping>=2.3.1
+numpy>=1.23.4
+torch>=1.13.0
+torchtyping>=0.1.4
+torchvision>=0.14.0
+tqdm>=4.64.1
+
+# dev
+mypy>=0.982
+black>=22.10.0
+isort>=5.10.1

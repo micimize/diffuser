@@ -9,3 +9,10 @@
 * Experiment with heirarchical control (i.e spider maze2d)
 
 
+Maze 2D only gets x,y position and velocities
+
+```
+pip install -r requirements.txt
+# export SETUPTOOLS_ENABLE_FEATURES="legacy-editable"
+# for editable install of minigrid
+```

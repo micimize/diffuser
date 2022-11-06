@@ -1,6 +1,6 @@
-bin/
-logs/
-wandb/
+*/bin/
+*/logs/
+*/wandb/
 
 fuse.cfg
 
