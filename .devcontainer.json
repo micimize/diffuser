@@ -1,0 +1,27 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".",
+    "args": {
+      "-t": "diffuser"
+    }
+  },
+  "runArgs": [
+    "--entrypoint=/bin/bash",
+    "--runtime=nvidia",
+    "--gpus=all,\"capabilities=utility,compute,graphics\""
+  ],
+  // --mount type=bind,source=$HOME/.d4rl,target=/root/.d4rl \
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/code,type=bind,consistency=cached",
+  "workspaceFolder": "/home/code",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/opt/conda/envs/diffuser/bin/python"
+      },
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  },
+}

@@ -1,4 +1,5 @@
 import math
+from typing import Dict, Final, Literal
 import numpy as np
 import torch
 import torch.nn as nn
@@ -157,7 +158,9 @@ class ValueL2(ValueLoss):
     def _loss(self, pred, targ):
         return F.mse_loss(pred, targ, reduction='none')
 
-Losses = {
+
+LossKeys = Literal[ 'l1', 'l2', 'value_l1', 'value_l2', ]
+Losses: Final = {
     'l1': WeightedL1,
     'l2': WeightedL2,
     'value_l1': ValueL1,
