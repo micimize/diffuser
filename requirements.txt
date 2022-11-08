@@ -12,6 +12,9 @@ torchtyping>=0.1.4
 torchvision>=0.14.0
 tqdm>=4.64.1
 
+# https://github.com/john-science/mazelib
+mazelib>=0.9.13
+
 # dev
 mypy>=0.982
 black>=22.10.0
