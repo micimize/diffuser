@@ -1,17 +1,12 @@
-from typing import Final, Iterable, List, Optional, Tuple, TypeVar, Union
+from typing import Iterable, List, Optional, Tuple, TypeVar, Union
 import numpy as np
-from typing import Callable, Protocol
-from nptyping import NDArray, Shape, Int, Bool
-
-from numpy.random import Generator, default_rng
-
-# TODO is this rows, columns or columns, rows
-BitMaze = NDArray[Shape["Height, Width"], Int]
-"""Maze of 0s and 1s, where 1s are walls.
-"""
-
+from typing import Protocol
+from nptyping import NDArray, Shape, Bool
+from numpy.random import Generator
 
 from gymnasium.core import seeding
+
+from horizon_diffuser.maze_env.bit_maze import BitMaze, average_2d, add_2d
 
 
 _Seed = Union[int, List[int]]
@@ -129,12 +124,12 @@ class DFSWallIslandGenerator(BitMazeGenerator):
             if y < height - 2:
                 growth_candidates.append(two_down)
 
-            growth_candidates = [c for c in growth_candidates if maze[_add_points((x, y), c)] == 0]
+            growth_candidates = [c for c in growth_candidates if maze[add_2d((x, y), c)] == 0]
             if len(growth_candidates) > 0:
                 dir = self._rand_elem(growth_candidates)
-                new_point = _add_points((x, y), dir)
+                new_point = add_2d((x, y), dir)
                 maze[new_point] = 1
-                mid_point = _add_points((x, y), _average_points(dir, (0, 0)))
+                mid_point = add_2d((x, y), average_2d(dir, (0, 0)))
                 maze[mid_point] = 1
                 x, y = new_point
 
@@ -149,30 +144,3 @@ class DFSWallIslandGenerator(BitMazeGenerator):
             self.add_wall_island(maze, size)
 
         return maze
-
-
-def _add_points(a: Tuple[int, int], b: Tuple[int, int]) -> Tuple[int, int]:
-    return (a[0] + b[0], a[1] + b[1])
-
-
-def _average_points(a: Tuple[int, int], b: Tuple[int, int]) -> Tuple[int, int]:
-    return (a[0] + b[0] // 2, a[1] + b[1] // 2)
-
-
-example_maze: Final = np.array(
-    [
-        [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
-        [0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0],
-        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0],
-        [0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1],
-        [0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0],
-        [1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0],
-        [1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
-        [1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0],
-        [0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0],
-    ]
-)

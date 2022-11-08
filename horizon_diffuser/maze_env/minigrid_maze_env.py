@@ -3,7 +3,7 @@ from optparse import Option
 from typing import Callable, Literal, Sequence, Set, cast
 from typing import Iterable, Union
 from typing import Final, Optional, Tuple, TypedDict
-from horizon_diffuser.maze_env.bit_maze import distance_mask, empty_indices, filled_indices
+from horizon_diffuser.maze_env.bit_maze import BitMaze, distance_mask, empty_indices, filled_indices
 from horizon_diffuser.maze_env.generators import BitMazeGenerator
 from minigrid.minigrid_env import MiniGridEnv
 from minigrid.core.world_object import WorldObj, Goal, Wall
@@ -13,9 +13,6 @@ from minigrid.core.constants import COLOR_NAMES, DIR_TO_VEC, TILE_PIXELS
 
 from nptyping import NDArray, Shape, Int, Bool
 import numpy as np
-
-# TODO is this rows, columns or columns, rows
-BitMaze = NDArray[Shape["Height, Width"], Int]
 
 Point = Tuple[int, int]
 
